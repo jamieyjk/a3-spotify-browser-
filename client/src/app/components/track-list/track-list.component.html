@@ -1,0 +1,38 @@
+<table class="table table-sm table-light table-striped" *ngIf="tracks">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Track</th>
+			<th scope="col">Duration</th>
+			<!--TODO: Use *ngIf to hide if hideArtist is true-->
+			<ng-container *ngIf="!hideArtist">
+				<th scope="col">Primary Artist</th>
+			</ng-container>	
+			<!--TODO: Use *ngIf to hide if hideAlbum is true-->
+			<ng-container *ngIf="!hideAlbum">
+				<th scope="col">Album</th>
+			</ng-container>
+		</tr>
+	</thead>
+	<tbody>
+		<!--TODO: Use *ngFor to loop over tracks-->
+		<tr *ngFor="let track of tracks; let i = index">
+			<!--TODO: Populate with row index (start with 1!)-->
+			<td>{{ i + 1}}</td>
+			<td>
+				<!--TODO: link to the endpoint for that track, display the track's name-->
+				<a [routerLink]="[track.category, track.id]">{{ track.name }}</a>
+			</td>
+			<!--TODO: display the track's duration-->
+			<td>{{ track.durationStr }}</td>
+			<!--TODO: Use *ngIf to hide if hideArtist is true; link to the first artist's endpoint and display the first artist's name-->
+			<ng-container *ngIf="!hideArtist">
+				<td><a [href]="track.artists[0].url">{{ track.artists[0].name }}</a></td>
+			</ng-container>
+			<!--TODO: Use *ngIf to hide if hideAlbum is true; link to the album's endpoint and display the album's name-->
+			<ng-container *ngIf="!hideAlbum">
+				<td><a [href]="track.album.url">{{ track.album.name }}</a></td>
+			</ng-container>
+		</tr>
+	</tbody>
+</table>
